@@ -5,3 +5,7 @@
 expo-env.d.ts
 # @end expo-clinode_modules/
 node_modules/
+
+# Environment files
+.env
+.env.*

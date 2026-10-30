@@ -86,7 +86,7 @@ function OtpInput({
   value, onChange, accent,
 }: { value: string; onChange: (v: string) => void; accent: string }) {
   const inputRef = useRef<TextInputInstance>(null);
-  const digits = value.padEnd(6, "").split("").slice(0, 6);
+  const digits = Array.from({ length: 6 }, (_, index) => value[index] ?? "");
 
   // Focus the hidden input on mount (delayed so the slide-in animation finishes first)
   useEffect(() => {
@@ -100,6 +100,8 @@ function OtpInput({
       style={otp.wrapper}
       onPress={() => inputRef.current?.focus()}
       activeOpacity={1}
+      accessibilityRole="button"
+      accessibilityLabel="Enter 6-digit email verification code"
     >
       <TextInput
         ref={inputRef}
@@ -110,6 +112,7 @@ function OtpInput({
         maxLength={6}
         caretHidden
         showSoftInputOnFocus
+        accessibilityLabel="Email verification code"
       />
       <View style={otp.row}>
         {digits.map((d, i) => (
@@ -129,10 +132,10 @@ function OtpInput({
   );
 }
 const otp = StyleSheet.create({
-  wrapper:   { alignItems: "center", marginBottom: 8 },
+  wrapper:   { alignItems: "center", width: "100%", marginBottom: 8 },
   hidden:    { position: "absolute", opacity: 0, width: 1, height: 1 },
-  row:       { flexDirection: "row", gap: 10 },
-  box:       { width: 48, height: 58, borderRadius: 12, borderWidth: 2, borderColor: WHITE_15,
+  row:       { flexDirection: "row", gap: 8, width: "100%", maxWidth: 338 },
+  box:       { flex: 1, minWidth: 0, height: 58, borderRadius: 12, borderWidth: 2, borderColor: WHITE_15,
                backgroundColor: WHITE_08, alignItems: "center", justifyContent: "center" },
   boxActive: { borderColor: ACCENT, borderWidth: 2 },
   digit:     { fontSize: 24, fontWeight: "800", color: WHITE, letterSpacing: 1 },
