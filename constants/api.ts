@@ -1,13 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Constants from "expo-constants";
 
 // ─── Base URL resolution ──────────────────────────────────────────────────────
-// Set EXPO_PUBLIC_API_URL in your .env, e.g. http://192.168.1.10:4000
+// Set EXPO_PUBLIC_API_URL in your .env to override the deployed API.
 const envUrl = process.env.EXPO_PUBLIC_API_URL;
-const debuggerHost = (Constants.expoConfig as any)?.hostUri as string | undefined;
-const inferredHost = debuggerHost ? debuggerHost.split(":")[0] : "localhost";
 
-export const API_URL = envUrl || `http://${inferredHost}:4000`;
+export const API_URL = envUrl || "https://heytenant-backend.onrender.com";
 
 // ─── Token storage ─────────────────────────────────────────────────────────────
 const ACCESS_KEY = "heytenant_access_token";
